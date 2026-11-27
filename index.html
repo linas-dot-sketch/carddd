@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Олександр Коваленко — Product Designer & Frontend Developer</title>
+    <meta name="description" content="Сучасні веб-інтерфейси, дизайн-системи та високопродуктивні веб-додатки під ключ.">
+    
+    <!-- Підключення шрифтів Google Fonts: Plus Jakarta Sans та Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Підключення іконок Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Конфігурація Tailwind CSS -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 8s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -40px) scale(1.08)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.95)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Додаткові утиліти для Glassmorphism та анімацій скролу -->
+    <style>
+        /* Скляний ефект для світлої та темної тем */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.78);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Анімація появи елементів (Intersection Observer) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Кастомний скролбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.35);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.65);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased selection:bg-primary-500 selection:text-white transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Фонові декоративні градієнтні плями -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-5%] w-96 h-96 bg-primary-500/20 dark:bg-primary-500/15 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob"></div>
+        <div class="absolute top-[25%] right-[-8%] w-[28rem] h-[28rem] bg-cyan-400/20 dark:bg-cyan-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-10%] left-[25%] w-96 h-96 bg-fuchsia-400/20 dark:bg-purple-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-blob" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- 1. НАВІГАЦІЙНА ПАНЕЛЬ -->
+    <header class="fixed top-0 inset-x-0 z-40 glass-nav border-b border-slate-200/70 dark:border-slate-800/80 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <!-- Логотип -->
+                <a href="#hero" class="flex items-center gap-2.5 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-cyan-500 flex items-center justify-center text-white font-display font-extrabold text-lg shadow-lg shadow-primary-500/25 group-hover:scale-105 transition-transform">
+                        ОК
+                    </div>
+                    <span class="font-display font-bold text-lg sm:text-xl tracking-tight">
+                        Kovalenko<span class="text-primary-500">.studio</span>
+                    </span>
+                </a>
+
+                <!-- Навігація (Desktop) -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+                    <a href="#about" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Про мене</a>
+                    <a href="#portfolio" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Проєкти</a>
+                    <a href="#services" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Послуги</a>
+                    <a href="#contact" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Контакти</a>
+                </nav>
+
+                <!-- Дії праворуч -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- Перемикач теми -->
+                    <button id="theme-toggle" aria-label="Перемкнути тему" class="p-2.5 rounded-xl bg-slate-200/70 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:bg-slate-300/70 dark:hover:bg-slate-700 transition-all focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-slate-700"></i>
+                    </button>
+
+                    <!-- Кнопка швидкого зв'язку (Desktop) -->
+                    <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold shadow-md shadow-primary-500/25 hover:shadow-primary-500/40 transition-all active:scale-95">
+                        <span>Написати</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+
+                    <!-- Кнопка мобільного меню -->
+                    <button id="mobile-menu-btn" aria-label="Відкрити меню" class="md:hidden p-2.5 rounded-xl bg-slate-200/70 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:bg-slate-300/70 dark:hover:bg-slate-700 transition-colors">
+                        <i data-lucide="menu" id="menu-icon-open" class="w-5 h-5"></i>
+                        <i data-lucide="x" id="menu-icon-close" class="w-5 h-5 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мобільне випадаюче меню -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200/70 dark:border-slate-800/80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-2">
+            <a href="#about" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Про мене</a>
+            <a href="#portfolio" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Проєкти</a>
+            <a href="#services" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Послуги</a>
+            <a href="#contact" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Контакти</a>
+            <div class="pt-2">
+                <a href="#contact" class="mobile-link flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-primary-600 text-white font-semibold shadow-lg shadow-primary-500/25">
+                    <span>Обговорити проєкт</span>
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. HERO-СЕКЦІЯ -->
+        <section id="hero" class="relative pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-44 lg:pb-36 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                <!-- Текстова колонка -->
+                <div class="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
+                    <!-- Статус-бейдж -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 shadow-sm">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <span>Відкритий до нових проєктів • Україна / Remote</span>
+                    </div>
+
+                    <!-- Заголовок -->
+                    <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.12]">
+                        Привіт, я <span class="bg-gradient-to-r from-primary-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">Олександр Коваленко</span> — створюю цифрові продукти, що вражають.
+                    </h1>
+
+                    <!-- Підзаголовок -->
+                    <p class="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Senior Product Designer & Frontend-розробник. Поєдную естетику сучасного UI/UX дизайну з бездоганною швидкістю коду, перетворюючи ідеї бізнесу на прибуткові веб-сервіси.
+                    </p>
+
+                    <!-- Кнопки заклику до дії (CTA) -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#contact" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-700 hover:to-indigo-700 text-white font-semibold text-base shadow-xl shadow-primary-500/25 hover:shadow-primary-500/40 transition-all active:scale-95">
+                            <span>Обговорити проєкт</span>
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#portfolio" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-2xl glass-card hover:bg-white dark:hover:bg-slate-800/90 text-slate-800 dark:text-slate-100 font-semibold text-base transition-all active:scale-95">
+                            <span>Переглянути роботи</span>
+                            <i data-lucide="arrow-down-right" class="w-5 h-5 text-primary-500"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Візуальна інтерактивна картка / абстрактна графіка -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md animate-float">
+                        <!-- Підсвітка позаду картки -->
+                        <div class="absolute -inset-2 bg-gradient-to-tr from-primary-500 via-cyan-400 to-fuchsia-500 rounded-3xl blur-2xl opacity-30 dark:opacity-40"></div>
+                        
+                        <!-- Основна скляна картка інтерфейсу -->
+                        <div class="relative glass-card rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+                            <!-- Верхня панель вікна -->
+                            <div class="flex items-center justify-between border-b border-slate-200/70 dark:border-slate-700/70 pb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                </div>
+                                <span class="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-3 py-1 rounded-full">
+                                    design-system.tsx
+                                </span>
+                            </div>
+
+                            <!-- Імітація аналітики та UI компонентів -->
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Конверсія інтерфейсу</p>
+                                        <p class="font-display font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white">+148.5%</p>
+                                    </div>
+                                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center">
+                                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Графік-смужки -->
+                                <div class="grid grid-cols-7 gap-2 items-end h-28 pt-4 px-2 bg-slate-100/70 dark:bg-slate-900/60 rounded-2xl p-3">
+                                    <div class="bg-primary-400/50 rounded-t-lg h-[40%]"></div>
+                                    <div class="bg-primary-500/60 rounded-t-lg h-[60%]"></div>
+                                    <div class="bg-primary-500/75 rounded-t-lg h-[50%]"></div>
+                                    <div class="bg-indigo-500/85 rounded-t-lg h-[75%]"></div>
+                                    <div class="bg-cyan-500/90 rounded-t-lg h-[68%]"></div>
+                                    <div class="bg-gradient-to-t from-primary-600 to-cyan-400 rounded-t-lg h-[95%]"></div>
+                                    <div class="bg-gradient-to-t from-primary-600 to-emerald-400 rounded-t-lg h-[88%]"></div>
+                                </div>
+
+                                <!-- Міні-картки стеку -->
+                                <div class="grid grid-cols-2 gap-3 pt-1">
+                                    <div class="p-3.5 rounded-2xl bg-white/70 dark:bg-slate-800/70 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-3">
+                                        <div class="p-2 rounded-xl bg-primary-500/15 text-primary-500">
+                                            <i data-lucide="figma" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold">UI/UX Дизайн</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Figma & Systems</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-white/70 dark:bg-slate-800/70 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-3">
+                                        <div class="p-2 rounded-xl bg-cyan-500/15 text-cyan-500">
+                                            <i data-lucide="code-2" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-semibold">Frontend</p>
+                                            <p class="text-[11px] text-slate-500 dark:text-slate-400">React & Tailwind</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. СЕКЦІЯ «ПРО МЕНЕ» ТА КЛЮЧОВІ НАВИЧКИ -->
+        <section id="about" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="reveal">
+                <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+                    <span class="text-primary-600 dark:text-primary-400 font-semibold text-sm uppercase tracking-wider">Про мене та експертизу</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl mt-2 tracking-tight">
+                        Фокус на результаті, деталях та швидкості роботи
+                    </h2>
+                </div>
+
+                <!-- Статистика (3 картки) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-14">
+                    <div class="glass-card rounded-3xl p-7 text-center hover:-translate-y-1 transition-transform">
+                        <div class="font-display font-extrabold text-4xl sm:text-5xl bg-gradient-to-r from-primary-600 to-cyan-500 bg-clip-text text-transparent">
+                            6+
+                        </div>
+                        <p class="mt-2 font-semibold text-slate-800 dark:text-slate-200">Років комерційного досвіду</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">У продуктових та аутсорс-компаніях</p>
+                    </div>
+                    <div class="glass-card rounded-3xl p-7 text-center hover:-translate-y-1 transition-transform">
+                        <div class="font-display font-extrabold text-4xl sm:text-5xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 bg-clip-text text-transparent">
+                            65+
+                        </div>
+                        <p class="mt-2 font-semibold text-slate-800 dark:text-slate-200">Реалізованих проєктів</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Від стартапів до великих SaaS-платформ</p>
+                    </div>
+                    <div class="glass-card rounded-3xl p-7 text-center hover:-translate-y-1 transition-transform">
+                        <div class="font-display font-extrabold text-4xl sm:text-5xl bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent">
+                            98%
+                        </div>
+                        <p class="mt-2 font-semibold text-slate-800 dark:text-slate-200">Задоволених клієнтів</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Повертаються для масштабування продуктів</p>
+                    </div>
+                </div>
+
+                <!-- Блок опису та навичок -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Історія та підхід -->
+                    <div class="lg:col-span-6 glass-card rounded-3xl p-7 sm:p-9 space-y-5">
+                        <h3 class="font-display font-bold text-2xl">Мій підхід до створення продуктів</h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Я вірю, що найкращий дизайн — це той, який не змушує користувача думати. Моя головна перевага полягає в поєднанні двох світів: глибокого розуміння психології користувача (UX) та чистої інженерної реалізації на сучасних веб-технологіях.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Кожен проєкт проходить шлях від дослідження бізнес-цілей і прототипування до адаптивної верстки з оцінкою 95+ у Google Lighthouse.
+                        </p>
+                        
+                        <!-- Інтерактивні бейджі інструментів -->
+                        <div class="pt-3">
+                            <p class="text-xs uppercase tracking-wider font-semibold text-slate-500 dark:text-slate-400 mb-3">Ключовий стек технологій</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-primary-500/10 text-primary-600 dark:text-primary-400 border border-primary-500/20 hover:scale-105 transition-transform cursor-default">Figma</span>
+                                <span class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 hover:scale-105 transition-transform cursor-default">React / Next.js</span>
+                                <span class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 hover:scale-105 transition-transform cursor-default">Tailwind CSS</span>
+                                <span class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 hover:scale-105 transition-transform cursor-default">JavaScript / TypeScript</span>
+                                <span class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400 border border-fuchsia-500/20 hover:scale-105 transition-transform cursor-default">Design Systems</span>
+                                <span class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:scale-105 transition-transform cursor-default">Webflow / Framer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Прогрес-бари компетенцій -->
+                    <div class="lg:col-span-6 glass-card rounded-3xl p-7 sm:p-9 space-y-6">
+                        <h3 class="font-display font-bold text-2xl">Рівень компетенцій</h3>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span>UI/UX Дизайн та Прототипування</span>
+                                    <span class="text-primary-500">96%</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-primary-600 to-cyan-500 rounded-full" style="width: 96%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span>Frontend розробка (HTML5, CSS3, JS/React)</span>
+                                    <span class="text-primary-500">92%</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-indigo-600 to-purple-500 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span>Побудова масштабованих Design Systems</span>
+                                    <span class="text-primary-500">94%</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full" style="width: 94%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-semibold mb-2">
+                                    <span>Оптимізація швидкості та SEO-архітектура</span>
+                                    <span class="text-primary-500">89%</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gradient-to-r from-fuchsia-500 to-rose-500 rounded-full" style="width: 89%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ПОРТФОЛІО / ПРОЄКТИ -->
+        <section id="portfolio" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="reveal">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                    <div>
+                        <span class="text-primary-600 dark:text-primary-400 font-semibold text-sm uppercase tracking-wider">Вибрані кейси</span>
+                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl mt-2 tracking-tight">
+                            Останні проєкти
+                        </h2>
+                    </div>
+
+                    <!-- Фільтр категорій -->
+                    <div class="flex flex-wrap gap-2" id="portfolio-filters">
+                        <button data-filter="all" class="filter-btn active px-4 py-2.5 rounded-xl text-sm font-semibold bg-primary-600 text-white shadow-md shadow-primary-500/25 transition-all">
+                            Усі роботи
+                        </button>
+                        <button data-filter="web" class="filter-btn px-4 py-2.5 rounded-xl text-sm font-semibold glass-card text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition-all">
+                            Веб-додатки
+                        </button>
+                        <button data-filter="design" class="filter-btn px-4 py-2.5 rounded-xl text-sm font-semibold glass-card text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition-all">
+                            UI/UX Дизайн
+                        </button>
+                        <button data-filter="ecommerce" class="filter-btn px-4 py-2.5 rounded-xl text-sm font-semibold glass-card text-slate-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition-all">
+                            E-Commerce
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Сітка проєктів (генерується та фільтрується через JS) -->
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                    <!-- Картки вставляються динамічно -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ПОСЛУГИ -->
+        <section id="services" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="reveal">
+                <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+                    <span class="text-primary-600 dark:text-primary-400 font-semibold text-sm uppercase tracking-wider">Чим я можу допомогти</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl mt-2 tracking-tight">
+                        Послуги для росту вашого бізнесу
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 mt-4 text-base sm:text-lg">
+                        Комплексний підхід від ідеї та прототипу до готового продукту в продакшені.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Послуга 1 -->
+                    <div class="glass-card rounded-3xl p-7 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-primary-500/15 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="layout" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl mb-3">UI/UX Дизайн сайтів</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                Проєктування сучасних лендінгів, корпоративних сайтів та складних веб-сервісів з фокусом на конверсію.
+                            </p>
+                        </div>
+                        <ul class="space-y-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 border-t border-slate-200/70 dark:border-slate-700/70 pt-4">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Аналіз конкурентів та ЦА</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Інтерактивні прототипи</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Адаптив під усі екрани</li>
+                        </ul>
+                    </div>
+
+                    <!-- Послуга 2 -->
+                    <div class="glass-card rounded-3xl p-7 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="code" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl mb-3">Frontend Розробка</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                Чиста, семантична та блискавична верстка на React, Next.js або чистому HTML/Tailwind CSS з плавними анімаціями.
+                            </p>
+                        </div>
+                        <ul class="space-y-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 border-t border-slate-200/70 dark:border-slate-700/70 pt-4">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> PageSpeed 95+ балів</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Мікроанімації та інтерактив</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Підтримка після запуску</li>
+                        </ul>
+                    </div>
+
+                    <!-- Послуга 3 -->
+                    <div class="glass-card rounded-3xl p-7 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-fuchsia-500/15 text-fuchsia-600 dark:text-fuchsia-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="layers" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl mb-3">Дизайн-системи</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                Створення єдиної бібліотеки UI-компонентів у Figma та коді для швидкого масштабування продукту командою.
+                            </p>
+                        </div>
+                        <ul class="space-y-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 border-t border-slate-200/70 dark:border-slate-700/70 pt-4">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Токени кольорів та типографіки</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Dark / Light режими</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Документація для розробників</li>
+                        </ul>
+                    </div>
+
+                    <!-- Послуга 4 -->
+                    <div class="glass-card rounded-3xl p-7 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="rocket" class="w-7 h-7"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl mb-3">Запуск MVP під ключ</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                Швидкий запуск першої версії стартапу для тестування гіпотез та залучення перших клієнтів або інвесторів.
+                            </p>
+                        </div>
+                        <ul class="space-y-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 border-t border-slate-200/70 dark:border-slate-700/70 pt-4">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Термін реалізації від 10 днів</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Інтеграція аналітики та форм</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Готовність до масштабування</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. КОНТАКТИ ТА ФОРМА ЗВОРОТНОГО ЗВ'ЯЗКУ -->
+        <section id="contact" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="reveal glass-card rounded-[2rem] p-6 sm:p-10 lg:p-14 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+                    <!-- Контактна інформація -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div>
+                            <span class="text-primary-600 dark:text-primary-400 font-semibold text-sm uppercase tracking-wider">Контакти</span>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-4xl mt-2 tracking-tight">
+                                Готові розпочати новий проєкт?
+                            </h2>
+                            <p class="text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                                Залиште заявку у формі або напишіть мені напряму у зручний месенджер. Відповідаю протягом 2 годин у робочий час.
+                            </p>
+                        </div>
+
+                        <!-- Картка швидкого копіювання Email -->
+                        <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-800 flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3 overflow-hidden">
+                                <div class="w-10 h-10 rounded-xl bg-primary-500/15 text-primary-500 flex items-center justify-center shrink-0">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div class="truncate">
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Електронна пошта</p>
+                                    <p id="email-text" class="font-semibold text-sm sm:text-base truncate">hello@kovalenko.studio</p>
+                                </div>
+                            </div>
+                            <button id="copy-email-btn" type="button" title="Скопіювати email" class="px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 hover:bg-primary-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs font-semibold flex items-center gap-1.5 shrink-0 transition-all active:scale-95">
+                                <i data-lucide="copy" class="w-3.5 h-3.5 text-primary-500"></i>
+                                <span>Копіювати</span>
+                            </button>
+                        </div>
+
+                        <!-- Месенджери та локація -->
+                        <div class="space-y-4 pt-2">
+                            <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3.5 text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <div class="w-10 h-10 rounded-xl bg-sky-500/15 text-sky-500 flex items-center justify-center">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Telegram (найшвидший зв'язок)</p>
+                                    <p class="font-semibold text-sm">@kovalenko_design</p>
+                                </div>
+                            </a>
+
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3.5 text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                <div class="w-10 h-10 rounded-xl bg-blue-600/15 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">LinkedIn профіль</p>
+                                    <p class="font-semibold text-sm">Oleksandr Kovalenko</p>
+                                </div>
+                            </a>
+
+                            <div class="flex items-center gap-3.5 text-slate-700 dark:text-slate-300">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Локація</p>
+                                    <p class="font-semibold text-sm">Полтава / Київ, Україна (Працюю по всьому світу)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Інтерактивна форма зворотного зв'язку -->
+                    <div class="lg:col-span-7">
+                        <form id="contact-form" novalidate class="space-y-5 bg-white/60 dark:bg-slate-900/50 p-6 sm:p-8 rounded-3xl border border-slate-200/70 dark:border-slate-800">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="name" class="block text-sm font-semibold mb-2">Ваше ім'я *</label>
+                                    <input type="text" id="name" name="name" required placeholder="Іван Петренко" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm">
+                                    <p id="error-name" class="text-xs text-rose-500 mt-1.5 hidden">Будь ласка, введіть ваше ім'я (мінімум 2 символи).</p>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-semibold mb-2">Email або Telegram *</label>
+                                    <input type="text" id="email" name="email" required placeholder="ivan@company.ua або @username" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm">
+                                    <p id="error-email" class="text-xs text-rose-500 mt-1.5 hidden">Вкажіть коректний email або нікнейм у Telegram.</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="service-select" class="block text-sm font-semibold mb-2">Яка послуга вас цікавить?</label>
+                                <select id="service-select" name="service" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm">
+                                    <option value="UI/UX Дизайн та розробка під ключ">UI/UX Дизайн та розробка під ключ</option>
+                                    <option value="Дизайн лендінгу або корпоративного сайту">Дизайн лендінгу або корпоративного сайту</option>
+                                    <option value="Frontend розробка (React / Tailwind)">Frontend розробка (React / Tailwind)</option>
+                                    <option value="Аудит інтерфейсу / Дизайн-система">Аудит інтерфейсу / Дизайн-система</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-semibold mb-2">Опис проєкту або завдання *</label>
+                                <textarea id="message" name="message" rows="4" required placeholder="Розкажіть коротко про ваш проєкт, бажані терміни та цілі..." class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all text-sm resize-none"></textarea>
+                                <p id="error-message" class="text-xs text-rose-500 mt-1.5 hidden">Будь ласка, напишіть коротке повідомлення (мінімум 10 символів).</p>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-700 hover:to-indigo-700 text-white font-semibold text-base shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 flex items-center justify-center gap-2.5 transition-all active:scale-[0.99]">
+                                <span>Надіслати повідомлення</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 7. ФУТЕР -->
+    <footer class="border-t border-slate-200/80 dark:border-slate-800/80 py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-cyan-500 flex items-center justify-center text-white font-display font-bold text-sm">
+                    ОК
+                </div>
+                <span class="font-display font-bold text-base">
+                    Kovalenko<span class="text-primary-500">.studio</span>
+                </span>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
+                <a href="#hero" class="hover:text-primary-500 transition-colors">Головна</a>
+                <a href="#about" class="hover:text-primary-500 transition-colors">Про мене</a>
+                <a href="#portfolio" class="hover:text-primary-500 transition-colors">Проєкти</a>
+                <a href="#services" class="hover:text-primary-500 transition-colors">Послуги</a>
+                <a href="#contact" class="hover:text-primary-500 transition-colors">Контакти</a>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 text-center sm:text-right">
+                © <span id="current-year"></span> Олександр Коваленко. Всі права захищено.
+            </p>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНЕ ВІКНО ПЕРЕГЛЯДУ ПРОЄКТУ -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-slate-950/75 backdrop-blur-md transition-opacity">
+        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0" id="modal-content">
+            <!-- Кнопка закриття -->
+            <button id="close-modal-btn" aria-label="Закрити вікно" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center backdrop-blur-md transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Контент модалки заповнюється через JS -->
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- TOAST-СПОВІЩЕННЯ -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- JAVASCRIPT ЛОГІКА -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ініціалізація іконок Lucide
+            lucide.createIcons();
+
+            // Встановлення поточного року у футері
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // ==========================================
+            // 1. ПЕРЕМИКАЧ ТЕМНОЇ / СВІТЛОЇ ТЕМИ
+            // ==========================================
+            const htmlEl = document.documentElement;
+            const themeToggleBtn = document.getElementById('theme-toggle');
+
+            // Перевірка збереженої теми в localStorage
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            if (savedTheme === 'light') {
+                htmlEl.classList.remove('dark');
+            } else {
+                htmlEl.classList.add('dark');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                htmlEl.classList.toggle('dark');
+                const isDark = htmlEl.classList.contains('dark');
+                localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
+            });
+
+            // ==========================================
+            // 2. МОБІЛЬНЕ БУРГЕР-МЕНЮ
+            // ==========================================
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function toggleMobileMenu() {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    mobileMenu.classList.remove('hidden');
+                    menuIconOpen.classList.add('hidden');
+                    menuIconClose.classList.remove('hidden');
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    menuIconOpen.classList.remove('hidden');
+                    menuIconClose.classList.add('hidden');
+                }
+            }
+
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        toggleMobileMenu();
+                    }
+                });
+            });
+
+            // ==========================================
+            // 3. ПОРТФОЛІО: ДАНІ, ФІЛЬТРАЦІЯ ТА МОДАЛЬНЕ ВІКНО
+            // ==========================================
+            const projectsData = [
+                {
+                    id: 1,
+                    title: 'NovaPay Fintech Dashboard',
+                    category: 'web',
+                    categoryLabel: 'Веб-додаток',
+                    gradient: 'from-indigo-600 via-blue-600 to-cyan-500',
+                    icon: 'wallet',
+                    shortDesc: 'Інтерактивна панель керування фінансами та криптоактивами в реальному часі.',
+                    fullDesc: 'Розроблено повну дизайн-систему та фронтенд-архітектуру для фінтех-платформи. Впроваджено графіки аналітики в реальному часі, миттєві перекази та адаптивний режим для мобільних пристроїв.',
+                    metrics: '+42% до швидкості виконання операцій користувачами',
+                    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Figma'],
+                    year: '2025'
+                },
+                {
+                    id: 2,
+                    title: 'Aura Home — Магазин смарт-девайсів',
+                    category: 'ecommerce',
+                    categoryLabel: 'E-Commerce',
+                    gradient: 'from-fuchsia-600 via-purple-600 to-indigo-600',
+                    icon: 'shopping-bag',
+                    shortDesc: 'Мінімалістичний інтернет-магазин техніки для розумного дому з 3D-превʼю.',
+                    fullDesc: 'Редизайн інтернет-магазину з акцентом на візуальну презентацію товарів та спрощений процес оформлення замовлення в 2 кроки. Оптимізовано мобільну версію.',
+                    metrics: '+64% зростання конверсії у кошик за перші 2 місяці',
+                    tags: ['Next.js', 'UI/UX', 'Stripe', 'Animations'],
+                    year: '2025'
+                },
+                {
+                    id: 3,
+                    title: 'MedCore AI — Медична платформа',
+                    category: 'design',
+                    categoryLabel: 'UI/UX Дизайн',
+                    gradient: 'from-emerald-500 via-teal-500 to-cyan-600',
+                    icon: 'activity',
+                    shortDesc: 'Інтерфейс електронної черги та діагностики для мережі сучасних клінік.',
+                    fullDesc: 'Спроєктовано зручний кабінет пацієнта та робоче місце лікаря. Проведено 15 глибинних інтерв’ю з медичним персоналом для усунення зайвих кліків.',
+                    metrics: 'Зменшення часу запису на прийом з 4 хв до 45 сек',
+                    tags: ['Figma', 'Design System', 'UX Research'],
+                    year: '2024'
+                },
+                {
+                    id: 4,
+                    title: 'CloudFlow SaaS Workspace',
+                    category: 'web',
+                    categoryLabel: 'Веб-додаток',
+                    gradient: 'from-sky-500 via-indigo-500 to-violet-600',
+                    icon: 'cloud',
+                    shortDesc: 'Корпоративний таск-трекер та система управління командами для IT-компаній.',
+                    fullDesc: 'Створено гнучкі канбан-дошки, діаграми Ганта та систему сповіщень з підтримкою темної теми та гарячих клавіш.',
+                    metrics: 'Понад 12,000 активних щоденних користувачів',
+                    tags: ['React', 'Tailwind CSS', 'State Management'],
+                    year: '2024'
+                },
+                {
+                    id: 5,
+                    title: 'KavaCraft — Підписка на спешелті каву',
+                    category: 'ecommerce',
+                    categoryLabel: 'E-Commerce',
+                    gradient: 'from-amber-500 via-orange-500 to-rose-500',
+                    icon: 'coffee',
+                    shortDesc: 'Персоналізований конструктор підписки на свіжообсмажену каву.',
+                    fullDesc: 'Інтерактивний квіз підбору смаку, особистий кабінет керування регулярними доставками та емоційний візуальний сторітелінг.',
+                    metrics: '78% клієнтів оформлюють повторну підписку',
+                    tags: ['UI/UX', 'Webflow', 'Custom JS'],
+                    year: '2024'
+                },
+                {
+                    id: 6,
+                    title: 'VeloCity — Мобільний шеринг транспорту',
+                    category: 'design',
+                    categoryLabel: 'UI/UX Дизайн',
+                    gradient: 'from-teal-500 via-emerald-500 to-lime-500',
+                    icon: 'navigation',
+                    shortDesc: 'Дизайн мобільного додатку та веб-кабінету для сервісу оренди електробайків.',
+                    fullDesc: 'Розроблено інтуїтивну карту парковок, швидке розблокування за QR-кодом та гейміфікацію поїздок для постійних користувачів.',
+                    metrics: 'Оцінка 4.9 в App Store та Google Play',
+                    tags: ['Mobile UI', 'Prototyping', 'Figma'],
+                    year: '2023'
+                }
+            ];
+
+            const projectsGrid = document.getElementById('projects-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            function renderProjects(filter = 'all') {
+                projectsGrid.innerHTML = '';
+                const filtered = filter === 'all' 
+                    ? projectsData 
+                    : projectsData.filter(p => p.category === filter);
+
+                filtered.forEach(project => {
+                    const card = document.createElement('article');
+                    card.className = 'glass-card rounded-3xl overflow-hidden flex flex-col justify-between group hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300';
+                    
+                    card.innerHTML = `
+                        <div>
+                            <!-- Візуальна обкладинка кейсу -->
+                            <div class="relative h-48 bg-gradient-to-br ${project.gradient} p-6 flex flex-col justify-between overflow-hidden">
+                                <div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-white/15 blur-xl group-hover:scale-125 transition-transform duration-500"></div>
+                                <div class="flex items-center justify-between relative z-10">
+                                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-black/25 text-white backdrop-blur-md">
+                                        ${project.categoryLabel}
+                                    </span>
+                                    <span class="text-xs font-mono text-white/85">${project.year}</span>
+                                </div>
+                                <div class="relative z-10 w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center shadow-lg">
+                                    <i data-lucide="${project.icon}" class="w-6 h-6"></i>
+                                </div>
+                            </div>
+
+                            <!-- Опис -->
+                            <div class="p-6">
+                                <h3 class="font-display font-bold text-xl group-hover:text-primary-500 transition-colors">
+                                    ${project.title}
+                                </h3>
+                                <p class="text-sm text-slate-600 dark:text-slate-400 mt-2.5 leading-relaxed">
+                                    ${project.shortDesc}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Теги та кнопка деталей -->
+                        <div class="px-6 pb-6 pt-2 space-y-4">
+                            <div class="flex flex-wrap gap-1.5">
+                                ${project.tags.map(tag => `<span class="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-slate-200/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${tag}</span>`).join('')}
+                            </div>
+                            <button data-project-id="${project.id}" class="open-project-btn w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800/90 hover:bg-primary-600 hover:text-white dark:hover:bg-primary-600 text-slate-800 dark:text-slate-200 text-sm font-semibold flex items-center justify-center gap-2 transition-colors">
+                                <span>Детальніше про кейс</span>
+                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `;
+                    projectsGrid.appendChild(card);
+                });
+
+                // Повторна ініціалізація іконок для нових карток
+                lucide.createIcons();
+
+                // Додавання обробників відкриття модального вікна
+                document.querySelectorAll('.open-project-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = Number(btn.getAttribute('data-project-id'));
+                        openProjectModal(id);
+                    });
+                });
+            }
+
+            // Початковий рендер усіх проєктів
+            renderProjects('all');
+
+            // Обробка кліків по кнопках фільтрації
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-primary-600', 'text-white', 'shadow-md', 'shadow-primary-500/25');
+                        b.classList.add('glass-card', 'text-slate-700', 'dark:text-slate-300');
+                    });
+                    btn.classList.add('active', 'bg-primary-600', 'text-white', 'shadow-md', 'shadow-primary-500/25');
+                    btn.classList.remove('glass-card', 'text-slate-700', 'dark:text-slate-300');
+
+                    renderProjects(btn.getAttribute('data-filter'));
+                });
+            });
+
+            // Логіка модального вікна
+            const modal = document.getElementById('project-modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+
+            function openProjectModal(projectId) {
+                const project = projectsData.find(p => p.id === projectId);
+                if (!project) return;
+
+                modalBody.innerHTML = `
+                    <div class="h-44 sm:h-52 bg-gradient-to-br ${project.gradient} p-6 sm:p-8 flex flex-col justify-end relative">
+                        <span class="inline-block w-fit px-3 py-1 rounded-full text-xs font-semibold bg-black/30 text-white backdrop-blur-md mb-3">
+                            ${project.categoryLabel} • ${project.year}
+                        </span>
+                        <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-white">
+                            ${project.title}
+                        </h3>
+                    </div>
+                    <div class="p-6 sm:p-8 space-y-5">
+                        <div>
+                            <h4 class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Про проєкт</h4>
+                            <p class="text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                                ${project.fullDesc}
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0">
+                                <i data-lucide="award" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Ключовий результат</p>
+                                <p class="text-sm font-bold text-slate-800 dark:text-slate-100">${project.metrics}</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-2.5">Використані технології</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${project.tags.map(tag => `<span class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="pt-3 flex flex-col sm:flex-row gap-3">
+                            <a href="#contact" id="modal-order-btn" class="flex-1 py-3.5 px-5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm text-center transition-colors">
+                                Замовити схожий проєкт
+                            </a>
+                            <button type="button" id="modal-close-secondary" class="py-3.5 px-5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 font-semibold text-sm transition-colors">
+                                Закрити
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                lucide.createIcons();
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+
+                requestAnimationFrame(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                });
+
+                document.getElementById('modal-close-secondary').addEventListener('click', closeProjectModal);
+                document.getElementById('modal-order-btn').addEventListener('click', closeProjectModal);
+            }
+
+            function closeProjectModal() {
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+
+            closeModalBtn.addEventListener('click', closeProjectModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeProjectModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeProjectModal();
+                }
+            });
+
+            // ==========================================
+            // 4. TOAST-ПОВІДОМЛЕННЯ ТА КОПІЮВАННЯ EMAIL
+            // ==========================================
+            function showToast(message, type = 'success') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                
+                const iconName = type === 'success' ? 'check-circle-2' : 'alert-circle';
+                const iconColor = type === 'success' ? 'text-emerald-400' : 'text-rose-400';
+
+                toast.className = 'pointer-events-auto flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-slate-900 dark:bg-slate-800 text-white text-sm font-medium shadow-2xl border border-slate-700/80 transform translate-y-4 opacity-0 transition-all duration-300';
+                toast.innerHTML = `
+                    <i data-lucide="${iconName}" class="w-5 h-5 ${iconColor} shrink-0"></i>
+                    <span>${message}</span>
+                `;
+
+                container.appendChild(toast);
+                lucide.createIcons();
+
+                requestAnimationFrame(() => {
+                    toast.classList.remove('translate-y-4', 'opacity-0');
+                });
+
+                setTimeout(() => {
+                    toast.classList.add('translate-y-4', 'opacity-0');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3800);
+            }
+
+            // Копіювання Email в один клік (сумісне з iframe через execCommand)
+            const copyEmailBtn = document.getElementById('copy-email-btn');
+            const emailText = document.getElementById('email-text').textContent.trim();
+
+            copyEmailBtn.addEventListener('click', () => {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = emailText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Email скопійовано у буфер обміну!');
+                } catch (err) {
+                    showToast('Не вдалося скопіювати email', 'error');
+                }
+                document.body.removeChild(tempInput);
+            });
+
+            // ==========================================
+            // 5. ВАЛІДАЦІЯ ТА ВІДПРАВКА ФОРМИ КОНТАКТІВ
+            // ==========================================
+            const contactForm = document.getElementById('contact-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            const errorName = document.getElementById('error-name');
+            const errorEmail = document.getElementById('error-email');
+            const errorMessage = document.getElementById('error-message');
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // Валідація імені
+                if (nameInput.value.trim().length < 2) {
+                    errorName.classList.remove('hidden');
+                    nameInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errorName.classList.add('hidden');
+                    nameInput.classList.remove('border-rose-500');
+                }
+
+                // Валідація контакту (email або @telegram)
+                const contactVal = emailInput.value.trim();
+                const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactVal);
+                const isTelegram = /^@[a-zA-Z0-9_]{4,}$/.test(contactVal);
+                if (!isEmail && !isTelegram) {
+                    errorEmail.classList.remove('hidden');
+                    emailInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errorEmail.classList.add('hidden');
+                    emailInput.classList.remove('border-rose-500');
+                }
+
+                // Валідація повідомлення
+                if (messageInput.value.trim().length < 10) {
+                    errorMessage.classList.remove('hidden');
+                    messageInput.classList.add('border-rose-500');
+                    isValid = false;
+                } else {
+                    errorMessage.classList.add('hidden');
+                    messageInput.classList.remove('border-rose-500');
+                }
+
+                if (!isValid) {
+                    showToast('Будь ласка, перевірте правильність заповнення полів.', 'error');
+                    return;
+                }
+
+                // Імітація відправки на сервер
+                const submitBtn = document.getElementById('submit-btn');
+                const originalContent = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span>Надсилання...</span>`;
+
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalContent;
+                    lucide.createIcons();
+                    contactForm.reset();
+                    showToast('Дякую! Ваше повідомлення успішно надіслано. Зв’яжуся з вами найближчим часом.');
+                }, 700);
+            });
+
+            // ==========================================
+            // 6. АНІМАЦІЯ ПОЯВИ ЕЛЕМЕНТІВ (INTERSECTION OBSERVER)
+            // ==========================================
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
